@@ -77,9 +77,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         viewHolder.description.setText(restaurant.getDescription());
 
         if(AppSharedPreferences.doesRestaurantIdExist(restaurant.getId())) {
-            viewHolder.favorite.setImageResource(R.drawable.heart_filled);
+            viewHolder.favorite.setImageResource(R.drawable.ic_heart_filled);
         } else {
-            viewHolder.favorite.setImageResource(R.drawable.heart_empty);
+            viewHolder.favorite.setImageResource(R.drawable.ic_heart_empty);
         }
     }
 
