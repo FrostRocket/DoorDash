@@ -1,14 +1,13 @@
-package com.frostrocket.doordash;
+package com.frostrocket.doordash.utils;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+
+import com.frostrocket.doordash.DoorDash;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class AppSharedPreferences {
     private static final String RESTAURANT_IDS = "restaurant_ids";

@@ -1,6 +1,5 @@
 package com.frostrocket.doordash.activities;
 
-import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +7,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -27,6 +25,8 @@ import rx.SingleSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
+
+import static com.frostrocket.doordash.utils.ColorUtils.getThemeAccentColor;
 
 public class ResultsActivity extends AppCompatActivity  {
     @BindView(R.id.recycler_view_results) RecyclerView resultsRecyclerView;
@@ -77,12 +77,5 @@ public class ResultsActivity extends AppCompatActivity  {
                 Timber.e(error.toString());
             }
         });
-    }
-
-    public static int getThemeAccentColor(final Context context) {
-        final TypedValue value = new TypedValue ();
-        context.getTheme ().resolveAttribute (R.attr.colorPrimary, value, true);
-
-        return value.data;
     }
 }

@@ -10,11 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.frostrocket.doordash.AppSharedPreferences;
 import com.frostrocket.doordash.R;
 import com.frostrocket.doordash.adapters.RestaurantsAdapter;
 import com.frostrocket.doordash.api.RestClient;
 import com.frostrocket.doordash.api.model.Restaurant;
+import com.frostrocket.doordash.utils.AppSharedPreferences;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -27,7 +27,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
-import static com.frostrocket.doordash.activities.ResultsActivity.getThemeAccentColor;
+import static com.frostrocket.doordash.utils.ColorUtils.getThemeAccentColor;
 
 public class FavoritesActivity extends AppCompatActivity  {
     @BindView(R.id.recycler_view_favorites) RecyclerView favoritesRecyclerView;

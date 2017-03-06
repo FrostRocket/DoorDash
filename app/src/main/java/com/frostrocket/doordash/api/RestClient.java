@@ -4,7 +4,6 @@ import com.frostrocket.doordash.api.model.Restaurant;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -13,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 import timber.log.Timber;
 
 public class RestClient {
