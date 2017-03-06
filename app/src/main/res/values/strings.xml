@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DoorDash</string>
+    <string name="app_name">DoorDash Demo</string>
     <string name="results_label">Restaurants Near You</string>
     <string name="favorites_label">Your Favorites</string>
     <string name="action_show_favorites">Favorites</string>

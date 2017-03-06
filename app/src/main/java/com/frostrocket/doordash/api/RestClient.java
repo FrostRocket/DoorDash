@@ -20,9 +20,9 @@ public class RestClient {
     private static RestClient instance;
     private ApiService apiService;
 
-    public static synchronized RestClient getInstance(String baseUrl){
+    public static synchronized RestClient getInstance(){
         if(instance == null){
-            instance = new RestClient(baseUrl);
+            instance = new RestClient("https://api.doordash.com");
         }
 
         return instance;
@@ -42,7 +42,7 @@ public class RestClient {
         @GET("v2/restaurant/")
         Call<List<Restaurant>> getRestaurants(@Query("lat") String latitude, @Query("lng") String longitude);
 
-        @GET("v2/restaurant/")
+        @GET("v2/restaurant/{id}/")
         Call<Restaurant> getRestaurant(@Path("id") String id);
     }
 

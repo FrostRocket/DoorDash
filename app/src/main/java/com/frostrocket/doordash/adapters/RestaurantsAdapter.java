@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.frostrocket.doordash.AppSharedPreferences;
 import com.frostrocket.doordash.R;
@@ -46,16 +45,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         void onClick() {
             Restaurant restaurant = restaurants.get(getAdapterPosition());
 
-            if(AppSharedPreferences.doesRestaurantIdExist(restaurant.getId())) {
+            if(AppSharedPreferences.isRestaurantFavorited(restaurant.getId())) {
                 AppSharedPreferences.removeRestaurantId(restaurant.getId());
-
-                String toast = String.format("Removed %s from favorites.", restaurant.getName());
-                Toast.makeText(context, toast, Toast.LENGTH_LONG).show();
             } else {
                 AppSharedPreferences.addRestaurantId(restaurant.getId());
-
-                String toast = String.format("Added %s to favorites!", restaurant.getName());
-                Toast.makeText(context, toast, Toast.LENGTH_LONG).show();
             }
 
             notifyItemChanged(getAdapterPosition());
@@ -76,7 +69,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         viewHolder.name.setText(restaurant.getName());
         viewHolder.description.setText(restaurant.getDescription());
 
-        if(AppSharedPreferences.doesRestaurantIdExist(restaurant.getId())) {
+        if(AppSharedPreferences.isRestaurantFavorited(restaurant.getId())) {
             viewHolder.favorite.setImageResource(R.drawable.ic_heart_filled);
         } else {
             viewHolder.favorite.setImageResource(R.drawable.ic_heart_empty);

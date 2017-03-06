@@ -12,4 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:ellipsize="none" />
+
+    <ProgressBar
+        android:id="@+id/loading_spinner"
+        android:indeterminate="true"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

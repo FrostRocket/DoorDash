@@ -1,11 +1,14 @@
 package com.frostrocket.doordash.activities;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.frostrocket.doordash.AppSharedPreferences;
 import com.frostrocket.doordash.R;
@@ -24,8 +27,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
+import static com.frostrocket.doordash.activities.ResultsActivity.getThemeAccentColor;
+
 public class FavoritesActivity extends AppCompatActivity  {
     @BindView(R.id.recycler_view_favorites) RecyclerView favoritesRecyclerView;
+    @BindView(R.id.loading_spinner) ProgressBar progressBar;
 
     private RestaurantsAdapter restaurantsAdapter;
 
@@ -36,6 +42,8 @@ public class FavoritesActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_favorites);
 
         ButterKnife.bind(this);
+
+        progressBar.getIndeterminateDrawable().setColorFilter(getThemeAccentColor(this), PorterDuff.Mode.MULTIPLY);
 
         favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         favoritesRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -51,35 +59,25 @@ public class FavoritesActivity extends AppCompatActivity  {
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     public void getRestaurant(final int id) {
         Single<Restaurant> restaurantSingle = Single.fromCallable(new Callable<Restaurant>() {
             @Override
             public Restaurant call() throws Exception {
-                RestClient client = RestClient.getInstance("https://api.doordash.com");
-
-                return client.getRestaurant(id);
+                return RestClient.getInstance().getRestaurant(id);
             }
         });
 
         restaurantSingle.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleSubscriber<Restaurant>() {
             @Override
             public void onSuccess(Restaurant restaurant) {
+                progressBar.setVisibility(View.INVISIBLE);
+
                 restaurantsAdapter.add(restaurant);
             }
 
             @Override
             public void onError(Throwable error) {
-                Timber.i("Something went terribly wrong");
+                Timber.e(error.toString());
             }
         });
     }

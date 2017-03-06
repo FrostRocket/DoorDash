@@ -19,7 +19,7 @@ public class AppSharedPreferences {
         String restaurantIds = sharedPreferences.getString(RESTAURANT_IDS, "");
 
         if(!TextUtils.isEmpty(restaurantIds)) {
-            return Arrays.asList(restaurantIds.split(","));
+            return new ArrayList<>(Arrays.asList(restaurantIds.split(",")));
         } else {
             return new ArrayList<>();
         }
@@ -53,7 +53,7 @@ public class AppSharedPreferences {
         setRestaurantIds(restaurantIds);
     }
 
-    public static boolean doesRestaurantIdExist(int id) {
+    public static boolean isRestaurantFavorited(int id) {
         List<String> restaurantIds = getRestaurantIds();
 
         return restaurantIds.contains(Integer.toString(id));
