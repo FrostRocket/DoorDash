@@ -15,4 +15,4 @@ Notes (aka given more time, I would do this):
 - Sorted Restaurants alphabetically.
 - Heavier code commenting/Java docs.
 - Optimizing UI layouts (i.e. include tag).
-- Add App icon
+- Add application icon.
