@@ -1,4 +1,4 @@
-package com.frostrocket.doordash.utils;
+package com.frostrocket.doordash;
 
 import android.content.SharedPreferences;
 import android.text.TextUtils;

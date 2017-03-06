@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.frostrocket.doordash.utils.AppSharedPreferences;
-
 import timber.log.Timber;
 
 public class DoorDash extends Application {

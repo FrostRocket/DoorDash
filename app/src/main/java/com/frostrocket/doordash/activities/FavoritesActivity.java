@@ -14,9 +14,8 @@ import com.frostrocket.doordash.R;
 import com.frostrocket.doordash.adapters.RestaurantsAdapter;
 import com.frostrocket.doordash.api.RestClient;
 import com.frostrocket.doordash.api.model.Restaurant;
-import com.frostrocket.doordash.utils.AppSharedPreferences;
+import com.frostrocket.doordash.AppSharedPreferences;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 
 import butterknife.BindView;
@@ -52,6 +51,10 @@ public class FavoritesActivity extends AppCompatActivity  {
         restaurantsAdapter = new RestaurantsAdapter(this);
         favoritesRecyclerView.setAdapter(restaurantsAdapter);
 
+        if(AppSharedPreferences.getRestaurantIds().isEmpty()) {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+
         for(String id : AppSharedPreferences.getRestaurantIds()) {
             getRestaurant(Integer.valueOf(id));
         }
@@ -61,6 +64,8 @@ public class FavoritesActivity extends AppCompatActivity  {
         Single<Restaurant> restaurantSingle = Single.fromCallable(new Callable<Restaurant>() {
             @Override
             public Restaurant call() throws Exception {
+                progressBar.setVisibility(View.VISIBLE);
+
                 return RestClient.getInstance().getRestaurant(id);
             }
         });

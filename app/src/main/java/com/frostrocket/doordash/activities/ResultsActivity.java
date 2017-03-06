@@ -58,6 +58,8 @@ public class ResultsActivity extends AppCompatActivity  {
         Single<List<Restaurant>> restaurantSingle = Single.fromCallable(new Callable<List<Restaurant>>() {
             @Override
             public List<Restaurant> call() throws Exception {
+                progressBar.setVisibility(View.VISIBLE);
+
                 return RestClient.getInstance().getRestaurants(latitude, longitude);
             }
         });

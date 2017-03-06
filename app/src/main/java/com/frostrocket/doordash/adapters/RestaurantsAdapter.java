@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.frostrocket.doordash.R;
 import com.frostrocket.doordash.api.model.Restaurant;
-import com.frostrocket.doordash.utils.AppSharedPreferences;
+import com.frostrocket.doordash.AppSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
