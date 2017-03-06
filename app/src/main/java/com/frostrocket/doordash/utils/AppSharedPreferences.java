@@ -24,7 +24,7 @@ public class AppSharedPreferences {
         }
     }
 
-    public static void setRestaurantIds(List<String> restaurantIds) {
+    private static void setRestaurantIds(List<String> restaurantIds) {
         String idsCommaDelimited = "";
 
         for(String id : restaurantIds) {
