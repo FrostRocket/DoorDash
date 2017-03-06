@@ -52,9 +52,7 @@ public class FavoritesActivity extends AppCompatActivity  {
         restaurantsAdapter = new RestaurantsAdapter(this);
         favoritesRecyclerView.setAdapter(restaurantsAdapter);
 
-        List<String> restaurantIds = AppSharedPreferences.getRestaurantIds();
-
-        for(String id : restaurantIds) {
+        for(String id : AppSharedPreferences.getRestaurantIds()) {
             getRestaurant(Integer.valueOf(id));
         }
     }
