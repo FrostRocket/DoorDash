@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DoorDash</string>
+    <string name="action_settings">Settings</string>
+    <string name="location_permission_request">Your location is needed to get a list of all nearby restaurants.</string>
+</resources>
