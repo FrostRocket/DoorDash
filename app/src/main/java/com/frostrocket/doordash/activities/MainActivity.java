@@ -2,6 +2,7 @@ package com.frostrocket.doordash.activities;
 
 import android.Manifest;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -137,7 +138,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         int id = item.getItemId();
 
         if (id == R.id.action_show_favorites) {
-            return true;
+            Intent intent = new Intent(this, FavoritesActivity.class);
+
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -151,19 +154,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         map.getUiSettings().setZoomControlsEnabled(false);
         map.getUiSettings().setMyLocationButtonEnabled(true);
         map.setOnCameraMoveListener(this);
-
-        String[] permissions = {
-                Manifest.permission.ACCESS_FINE_LOCATION
-        };
-
-        if(EasyPermissions.hasPermissions(this, permissions)) {
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                map.setMyLocationEnabled(true);
-            }
-        } else {
-            EasyPermissions.requestPermissions(this, getString(R.string.location_permission_request),
-                    PERMISSIONS_REQUEST_FINE_LOCATION, permissions);
-        }
     }
 
     @Override
@@ -191,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
 
                 currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                map.setMyLocationEnabled(true);
             }
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.location_permission_request),
@@ -219,32 +210,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @OnClick(R.id.fab)
     public void find(View view) {
-        Single<List<Restaurant>> restaurantSingle = Single.fromCallable(new Callable<List<Restaurant>>() {
-            @Override
-            public List<Restaurant> call() throws Exception {
-                RestClient client = RestClient.getInstance("https://api.doordash.com");
+        Intent intent = new Intent(this, ResultsActivity.class);
+        intent.putExtra("LATITUDE", map.getCameraPosition().target.latitude);
+        intent.putExtra("LONGITUDE", map.getCameraPosition().target.longitude);
 
-                List<Restaurant> restaurants = new ArrayList<>();
-                try {
-                    restaurants = client.getRestaurants(currentLocation.getLatitude(), currentLocation.getLongitude(), new HashMap<String, String>());
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                }
-
-                return restaurants;
-            }
-        });
-
-        restaurantSingle.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleSubscriber<List<Restaurant>>() {
-            @Override
-            public void onSuccess(List<Restaurant> restaurants) {
-                Timber.i(restaurants.toString());
-            }
-
-            @Override
-            public void onError(Throwable error) {
-                Timber.i("Something went terribly wrong");
-            }
-        });
+        startActivity(intent);
     }
 }

@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import timber.log.Timber;
@@ -39,18 +40,26 @@ public class RestClient {
 
     private interface ApiService {
         @GET("v2/restaurant/")
-        Call<List<Restaurant>> getRestaurants(@Query("lat") String latitude,
-                                     @Query("lng") String longitude,
-                                     @QueryMap Map<String, String> parameters);
+        Call<List<Restaurant>> getRestaurants(@Query("lat") String latitude, @Query("lng") String longitude);
+
+        @GET("v2/restaurant/")
+        Call<Restaurant> getRestaurant(@Path("id") String id);
     }
 
     public ApiService getApiService() {
         return apiService;
     }
 
-    public List<Restaurant> getRestaurants(double latitude, double longitude, Map<String, String> parameters) throws IOException {
-        Call<List<Restaurant>> call = apiService.getRestaurants(Double.toString(latitude), Double.toString(longitude), parameters);
-        Timber.d("Restaurant Request: %s", call.request().url().toString());
+    public List<Restaurant> getRestaurants(double latitude, double longitude) throws IOException {
+        Call<List<Restaurant>> call = apiService.getRestaurants(Double.toString(latitude), Double.toString(longitude));
+        Timber.d("getRestaurants Request: %s", call.request().url().toString());
+
+        return call.execute().body();
+    }
+
+    public Restaurant getRestaurant(int id) throws IOException {
+        Call<Restaurant> call = apiService.getRestaurant(Integer.toString(id));
+        Timber.d("getRestaurant Request: %s", call.request().url().toString());
 
         return call.execute().body();
     }

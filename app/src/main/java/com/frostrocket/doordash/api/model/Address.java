@@ -32,23 +32,47 @@ public class Address {
         return city;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getState() {
         return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getStreet() {
         return street;
     }
 
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
     public Double getLatitude() {
         return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     public Double getLongitude() {
         return longitude;
     }
 
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
     public String getPrintableAddress() {
         return printableAddress;
+    }
+
+    public void setPrintableAddress(String printableAddress) {
+        this.printableAddress = printableAddress;
     }
 }
