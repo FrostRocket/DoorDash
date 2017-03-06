@@ -30,7 +30,7 @@
 
         <activity
             android:name=".activities.ResultsActivity"
-            android:label="@string/results_label"
+            android:label="@string/label_results"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">
@@ -42,7 +42,7 @@
 
         <activity
             android:name=".activities.FavoritesActivity"
-            android:label="@string/favorites_label"
+            android:label="@string/label_favorites"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">

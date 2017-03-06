@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DoorDash</string>
-    <string name="results_label">Restaurants Near You</string>
-    <string name="favorites_label">Your Favorites</string>
+    <string name="label_results">Restaurants Near You</string>
+    <string name="label_favorites">Your Favorites</string>
     <string name="action_show_favorites">Favorites</string>
     <string name="location_permission_request">Your location is needed to get a list of all nearby restaurants.</string>
 </resources>

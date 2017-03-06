@@ -43,10 +43,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     private static final int PERMISSIONS_REQUEST_FINE_LOCATION = 1;
 
     private GoogleMap map;
-
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
-
     private Location currentLocation;
 
     @BindView(R.id.map_view) MapView mapView;
