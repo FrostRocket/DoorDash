@@ -14,6 +14,7 @@ import com.frostrocket.doordash.api.model.Restaurant;
 import com.frostrocket.doordash.AppSharedPreferences;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -79,6 +80,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public int getItemCount() {
         return restaurants.size();
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return Collections.unmodifiableList(restaurants);
     }
 
     public void add(Restaurant restaurant) {

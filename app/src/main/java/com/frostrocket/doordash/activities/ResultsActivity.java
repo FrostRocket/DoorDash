@@ -7,24 +7,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ProgressBar;
 
+import com.frostrocket.doordash.DoorDash;
 import com.frostrocket.doordash.R;
 import com.frostrocket.doordash.adapters.RestaurantsAdapter;
-import com.frostrocket.doordash.api.RestClient;
-import com.frostrocket.doordash.api.model.Restaurant;
-
-import java.util.List;
-import java.util.concurrent.Callable;
+import com.frostrocket.doordash.workers.RestaurantsWorker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Single;
-import rx.SingleSubscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 import static com.frostrocket.doordash.utils.ColorUtils.getThemeAccentColor;
 
@@ -51,33 +42,10 @@ public class ResultsActivity extends AppCompatActivity  {
         restaurantsAdapter = new RestaurantsAdapter(this);
         resultsRecyclerView.setAdapter(restaurantsAdapter);
 
-        getRestaurants(getIntent().getDoubleExtra("LATITUDE", 37.422740), getIntent().getDoubleExtra("LONGITUDE", -122.139956));
-    }
+        double latitude = getIntent().getDoubleExtra("LATITUDE", 37.422740);
+        double longitude = getIntent().getDoubleExtra("LONGITUDE", -122.139956);
 
-    public void getRestaurants(final double latitude, final double longitude) {
-        Single<List<Restaurant>> restaurantSingle = Single.fromCallable(new Callable<List<Restaurant>>() {
-            @Override
-            public List<Restaurant> call() throws Exception {
-                progressBar.setVisibility(View.VISIBLE);
-
-                return RestClient.getInstance().getRestaurants(latitude, longitude);
-            }
-        });
-
-        restaurantSingle.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleSubscriber<List<Restaurant>>() {
-            @Override
-            public void onSuccess(List<Restaurant> restaurants) {
-                progressBar.setVisibility(View.INVISIBLE);
-
-                for(Restaurant restaurant : restaurants) {
-                    restaurantsAdapter.add(restaurant);
-                }
-            }
-
-            @Override
-            public void onError(Throwable error) {
-                Timber.e(error.toString());
-            }
-        });
+        RestaurantsWorker restaurantsWorker = ((DoorDash) getApplicationContext()).getRestaurantsWorker();
+        restaurantsWorker.retrieveAndSetRestaurants(latitude, longitude, restaurantsAdapter, progressBar);
     }
 }
